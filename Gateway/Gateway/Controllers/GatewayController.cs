@@ -73,7 +73,6 @@ public class GatewayController : ControllerBase
 
 
     [HttpPost("uploadfile")]
-    // [Authorize]
     public async Task<IActionResult> UploadFile(IFormFile file)
     {
         var url = "http://localhost:5064/uploadfile";
@@ -113,7 +112,6 @@ public class GatewayController : ControllerBase
     }
 
     [HttpGet("downloadfile/{id}")]
-    // [Authorize]
     public async Task<IActionResult> DownloadFile(int id)
     {
         var getFileUrl = $"http://localhost:5064/GetFile/{id}";
