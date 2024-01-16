@@ -144,3 +144,4 @@ D:\Programming\Visual Studio Code\MicroservicesTask\Gateway\Gateway\obj\Debug\ne
 D:\Programming\Visual Studio Code\MicroservicesTask\Gateway\Gateway\obj\Debug\net8.0\Gateway.pdb
 D:\Programming\Visual Studio Code\MicroservicesTask\Gateway\Gateway\obj\Debug\net8.0\Gateway.genruntimeconfig.cache
 D:\Programming\Visual Studio Code\MicroservicesTask\Gateway\Gateway\obj\Debug\net8.0\ref\Gateway.dll
+D:\Programming\Visual Studio Code\MicroservicesTask\Gateway\Gateway\obj\Debug\net8.0\Gateway.sourcelink.json

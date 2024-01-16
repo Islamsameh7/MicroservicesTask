@@ -60,6 +60,7 @@ public class GatewayController : ControllerBase
                 Response.Cookies.Append("AuthCookie", token, new CookieOptions
                 {
                     HttpOnly = true,
+                    Expires = DateTime.Now.AddMinutes(5),
                 });
 
                 return Ok(token);
@@ -117,46 +118,54 @@ public class GatewayController : ControllerBase
     {
         var getFileUrl = $"http://localhost:5064/GetFile/{id}";
 
+
         using (var client = _httpClientFactory.CreateClient())
         {
-            var getResponse = await client.GetAsync(getFileUrl);
+            var authToken = Request.Cookies["AuthCookie"];
 
-            if (getResponse.IsSuccessStatusCode)
+            if (!string.IsNullOrEmpty(authToken))
             {
-                var content = await getResponse.Content.ReadAsStringAsync();
-                var fileModel = JsonSerializer.Deserialize<DbFile>(content, new JsonSerializerOptions
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authToken);
+                var getResponse = await client.GetAsync(getFileUrl);
+
+                if (getResponse.IsSuccessStatusCode)
                 {
-                    PropertyNameCaseInsensitive = true
-                });
-
-                if (fileModel != null)
-                {
-                    var downloadUrl = $"http://localhost:5011/view/download";
-
-                    var fileModelJson = JsonSerializer.Serialize(fileModel);
-
-                    var stringContent = new StringContent(fileModelJson, Encoding.UTF8, "application/json");
-
-                    var downloadResponse = await client.PostAsync(downloadUrl, stringContent);
-
-                    if (downloadResponse.IsSuccessStatusCode)
+                    var content = await getResponse.Content.ReadAsStringAsync();
+                    var fileModel = JsonSerializer.Deserialize<DbFile>(content, new JsonSerializerOptions
                     {
-                        var fileContent = await downloadResponse.Content.ReadAsByteArrayAsync();
-                        var fileType = downloadResponse.Content.Headers.ContentType?.ToString() ?? fileModel.FileType;
-                        var fileName = downloadResponse.Content.Headers.ContentDisposition?.FileName ?? fileModel.FileName;
+                        PropertyNameCaseInsensitive = true
+                    });
 
-                        if (!string.IsNullOrEmpty(fileType))
+                    if (fileModel != null)
+                    {
+                        var downloadUrl = $"http://localhost:5011/view/download";
+
+                        var fileModelJson = JsonSerializer.Serialize(fileModel);
+
+                        var stringContent = new StringContent(fileModelJson, Encoding.UTF8, "application/json");
+
+                        var downloadResponse = await client.PostAsync(downloadUrl, stringContent);
+
+                        if (downloadResponse.IsSuccessStatusCode)
                         {
-                            return File(fileContent, fileType, fileName);
-                        }
-                        else
-                        {
-                            return BadRequest("Invalid or missing content type");
+                            var fileContent = await downloadResponse.Content.ReadAsByteArrayAsync();
+                            var fileType = downloadResponse.Content.Headers.ContentType?.ToString() ?? fileModel.FileType;
+                            var fileName = downloadResponse.Content.Headers.ContentDisposition?.FileName ?? fileModel.FileName;
+
+                            if (!string.IsNullOrEmpty(fileType))
+                            {
+                                return File(fileContent, fileType, fileName);
+                            }
+                            else
+                            {
+                                return BadRequest("Invalid or missing content type");
+                            }
                         }
                     }
                 }
+                return NotFound();
             }
-            return NotFound();
+            return Unauthorized();
         }
     }
 }

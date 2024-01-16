@@ -144,3 +144,4 @@ D:\Programming\Visual Studio Code\MicroservicesTask\ViewFileService\ViewFileServ
 D:\Programming\Visual Studio Code\MicroservicesTask\ViewFileService\ViewFileService\obj\Debug\net8.0\ViewFileService.pdb
 D:\Programming\Visual Studio Code\MicroservicesTask\ViewFileService\ViewFileService\obj\Debug\net8.0\ViewFileService.genruntimeconfig.cache
 D:\Programming\Visual Studio Code\MicroservicesTask\ViewFileService\ViewFileService\obj\Debug\net8.0\ref\ViewFileService.dll
+D:\Programming\Visual Studio Code\MicroservicesTask\ViewFileService\ViewFileService\obj\Debug\net8.0\ViewFileService.sourcelink.json

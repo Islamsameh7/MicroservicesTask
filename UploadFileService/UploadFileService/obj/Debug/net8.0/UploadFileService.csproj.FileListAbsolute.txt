@@ -149,3 +149,4 @@ D:\Programming\Visual Studio Code\MicroservicesTask\UploadFileService\UploadFile
 D:\Programming\Visual Studio Code\MicroservicesTask\UploadFileService\UploadFileService\obj\Debug\net8.0\UploadFileService.pdb
 D:\Programming\Visual Studio Code\MicroservicesTask\UploadFileService\UploadFileService\obj\Debug\net8.0\UploadFileService.genruntimeconfig.cache
 D:\Programming\Visual Studio Code\MicroservicesTask\UploadFileService\UploadFileService\obj\Debug\net8.0\ref\UploadFileService.dll
+D:\Programming\Visual Studio Code\MicroservicesTask\UploadFileService\UploadFileService\obj\Debug\net8.0\UploadFileService.sourcelink.json
